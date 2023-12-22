@@ -49,18 +49,23 @@ async function run() {
         })
 
         // all tast collection 
-        app.post('allTask', async (req, res) => {
+        app.post('/allTask', async (req, res) => {
             const task = req.body;
             const result = await taskCollection.insertOne(task);
             res.send(result);
         })
 
-        app.get('/allTask', async (req, res) => {
+        app.get('/all-Task', async (req, res) => {
             const email = req.query.email;
             const query = { email: email };
             const result = await taskCollection.find(query).toArray();
             res.send(result);
         })
+
+        app.get('/allTask', async (req, res) => {
+            const result = await taskCollection.find().toArray();
+            res.send(result);
+          })
 
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
